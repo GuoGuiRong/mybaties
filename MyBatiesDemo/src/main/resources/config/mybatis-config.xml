@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--外部的配置文件-->
+    <properties resource="config/db.properties">
+        <property name="jdbc.username" value="ggr"/>
+        <property name="password" value="ggr"/>
+    </properties>
+
+    <settings>
+        <!--开启缓存-->
+        <setting name="cacheEnabled" value="true"/>
+       <!-- &lt;!&ndash; 指定 MyBatis 所用日志的具体实现，未指定时将自动查找。 &ndash;&gt;
+        <setting name="logImpl" value="log4j " />
+        &lt;!&ndash; 指定 MyBatis 增加到日志名称的前缀。值可以是任意字符串 &ndash;&gt;
+        <setting name="logPrefix" value="log4j " />-->
+    </settings>
+
+    <typeAliases>
+       <typeAlias type="com.ggr.pojo.User" alias="user" />
+       <!-- <package name="com.ggr.pojo"/>-->
+    </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="com.ggr.pojo.PhoneNumberTypeHandelr" javaType="com.ggr.pojo.PhoneNumber"/>
+    </typeHandlers>
+
+    <environments default="development">
+        <environment id="development">
+
+            <!--
+                在 MyBatis 中有两种类型的事务管理器（也就是 type=”[JDBC|MANAGED]”）：
+                JDBC – 这个配置就是直接使用了 JDBC 的提交和回滚设置，它依赖于从数据源得到的连接来管理事务作用域。
+                MANAGED – 这个配置几乎没做什么。它从来不提交或回滚一个连接，而是让容器来管理事务的整个生命周期
+                （比如 JEE 应用服务器的上下文）。 默认情况下它会关闭连接，
+                然而一些容器并不希望这样，因此需要将 closeConnection 属性设置为 false 来阻止它默认的关闭行为。
+                <transactionManager type="MANAGED">
+                  <property name="closeConnection" value="false"/>
+                </transactionManager>
+
+                如果你正在使用 Spring + MyBatis，则没有必要配置事务管理器， 因为 Spring 模块会使用自带的管理器来覆盖前面的配置。
+            -->
+            <transactionManager type="JDBC"/>
+
+            <!--
+
+             数据源（dataSource）
+
+               dataSource 元素使用标准的 JDBC 数据源接口来配置 JDBC 连接对象的资源。
+
+               许多 MyBatis 的应用程序将会按示例中的例子来配置数据源。然而它并不是必须的。
+               要知道为了方便使用延迟加载，数据源才是必须的。
+
+                有三种内建的数据源类型（也就是 type=”[UNPOOLED|POOLED|JNDI]”）：
+
+                UNPOOLED– 这个数据源的实现只是每次被请求时打开和关闭连接。虽然一点慢，
+                它对在及时可用连接方面没有性能要求的简单应用程序是一个很好的选择。
+                不同的数据库在这方面表现也是不一样的，所以对某些数据库来说使用连接池并不重要，
+                这个配置也是理想的。UNPOOLED 类型的数据源仅仅需要配置以下 5 种属性：
+
+                driver – 这是 JDBC 驱动的 Java 类的完全限定名（并不是JDBC驱动中可能包含的数据源类）。
+                url – 这是数据库的 JDBC URL 地址。
+                username – 登录数据库的用户名。
+                password – 登录数据库的密码。
+                defaultTransactionIsolationLevel – 默认的连接事务隔离级别。
+
+                作为可选项，你也可以传递属性给数据库驱动。要这样做，属性的前缀为“driver.”，例如：
+
+                    driver.encoding=UTF8
+
+            -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+                <property name="driver.encoding" value="${jdbc.encoding}"/>
+            </dataSource>
+        </environment>
+
+        <environment id="product">
+            <transactionManager type="JDBC"/>
+            <dataSource type="UNPOOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+   <mappers>
+       <!-- <mapper resource="org/mybatis/example/BlogMapper.xml"/>-->
+      <mapper resource="Mapper/UserMapper.xml"/>
+     <!--<mapper class="com.ggr.dao.UserMapper"/>-->
+    </mappers>
+</configuration>

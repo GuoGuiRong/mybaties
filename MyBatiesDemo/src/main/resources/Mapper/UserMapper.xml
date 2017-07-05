@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ggr.dao.UserMapper">
+    <!--按照姓名查找用户-->
+    <select id="findUserByName" resultType="user">
+        select* from SYSTEM_USER where user_name = #{user_name}
+    </select>
+
+    <!--更新用户信息-->
+    <update id="updateUser" parameterType="User">
+       UPDATE SYSTEM_USER set user_name=#{user_name},user_passwd=#{user_passwd},user_status=#{user_status},user_phone=#{user_phone} where user_id = #{user_id}
+    </update>
+</mapper>
