@@ -5,12 +5,21 @@ QQ: 3095764372
 ---
 核心文件：mybaties-cofig.xml 和 xxxMapper.xml
 
-* **Configuration XML（mybaties-cofig.xml）**
+
+  
+
+
+
+
+
+
+* **`Configuration XML（mybaties-cofig.xml）`**
  
   虽然官方并未强制要求必须将文件命名为mybaties-config.xml,但是还是强烈建议将之命名为mybaties-config.xml,
-  **Configuration XML**中包括了许多设置mybaties工作的Settings和Properties,我们从mybaties配置文件的DTD文件
+  **`Configuration XML`**中包括了许多设置mybaties工作的Settings和Properties,我们从mybaties配置文件的DTD文件
   中可以看出整个Configuration包含了这几大元素:
-    * properties
+  目录结构:
+    * [properties](#properties)
     * settings
     * typeAliases
     * objectFactory
@@ -30,7 +39,7 @@ QQ: 3095764372
                 environments?, databaseIdProvider?, mappers?)>
         ```
 ---
-* **properties**
+* **<span id ="properties">properties</span>**
   > 这是一种一扩展,可插拔(可替换)的配置选项,通过一个Java Properties文件或者通过Properties文件子元素
   标签动态设定属性值。
   
@@ -515,7 +524,7 @@ QQ: 3095764372
    url属性用来通过完全文件系统路径或者web URL地址来指向mapper文件
    强烈建议使用`<mapper resource="org/mybatis/builder/AuthorMapper.xml"/>`,class方式的话就是已经有实现的类才有用。
    
-   
+  --- 
    
     
   
